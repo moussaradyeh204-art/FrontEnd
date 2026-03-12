@@ -1,0 +1,284 @@
+@use "variables" as *;
+
+// ── Login screen ──────────────────────────────────────────────
+.loginScreen {
+  position: fixed;
+  inset: 0;
+  @include flex-center;
+  background: var(--color-bg);
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse 70% 55% at 50% 45%,
+      var(--color-gold-dim) 0%,
+      transparent 68%
+    );
+  }
+}
+
+.loginBox {
+  position: relative;
+  z-index: 1;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-gold);
+  border-radius: var(--radius-lg);
+  padding: 3rem 2.5rem;
+  width: 460px;
+  max-width: 94vw;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.55);
+  animation: fadeUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.loginBrand {
+  font-family: var(--font-display);
+  font-size: 2.1rem;
+  font-weight: 900;
+  letter-spacing: 0.22em;
+  @include gold-text;
+  margin-bottom: 0.15rem;
+}
+.loginRole {
+  color: var(--color-gold);
+  opacity: 0.45;
+  font-size: 0.75rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+}
+
+.field {
+  margin-bottom: 1.1rem;
+  label {
+    display: block;
+    font-size: 0.78rem;
+    color: var(--color-text-dim);
+    margin-bottom: 0.4rem;
+  }
+  input {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    padding: 0.85rem 1.1rem;
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    outline: none;
+    transition: var(--transition);
+    &:focus {
+      border-color: var(--color-border-gold);
+      background: var(--color-gold-dim);
+    }
+  }
+}
+
+.loginBtn {
+  display: block;
+  width: 100%;
+  padding: 0.95rem;
+  margin-top: 0.5rem;
+  border-radius: 10px;
+  font-size: 1rem;
+  @include gold-button;
+}
+.loginErr {
+  color: var(--color-red);
+  font-size: 0.82rem;
+  margin-top: 0.65rem;
+}
+
+// ── Layout ────────────────────────────────────────────────────
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+// ── Employee chip ─────────────────────────────────────────────
+.empChip {
+  padding: 0.7rem 1rem;
+  background: var(--color-gold-dim);
+  border: 1px solid var(--color-border-gold);
+  border-radius: 10px;
+  font-size: 0.86rem;
+  margin-bottom: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.empName {
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.shiftChip {
+  padding: 0.6rem 1rem;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: var(--transition);
+  background: var(--color-red-dim);
+  border: 1px solid var(--color-red-border);
+  color: var(--color-red);
+  &.active {
+    background: var(--color-green-dim);
+    border-color: var(--color-green-border);
+    color: var(--color-green);
+  }
+}
+.shiftDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+  animation: blink 2s infinite;
+}
+
+// ── Clock buttons ─────────────────────────────────────────────
+.clockBtns {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 1.2rem;
+}
+.clockBtn {
+  flex: 1;
+  padding: 0.52rem 0.4rem;
+  border-radius: 8px;
+  font-size: 0.73rem;
+  font-weight: 700;
+  font-family: var(--font-body);
+  cursor: pointer;
+  border: none;
+  transition: var(--transition);
+  &.in {
+    background: var(--color-green-dim);
+    color: var(--color-green);
+    border: 1px solid var(--color-green-border);
+    &:hover:not(:disabled) {
+      background: var(--color-green);
+      color: #000;
+    }
+  }
+  &.out {
+    background: var(--color-red-dim);
+    color: var(--color-red);
+    border: 1px solid var(--color-red-border);
+    &:hover:not(:disabled) {
+      background: var(--color-red);
+      color: #fff;
+    }
+  }
+  &:disabled {
+    opacity: 0.32;
+    cursor: not-allowed;
+  }
+}
+
+// ── Stat cards ────────────────────────────────────────────────
+.statsRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  @media (max-width: 1100px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.statCard {
+  background: var(--color-surface2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1.2rem;
+  position: relative;
+  overflow: hidden;
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.05;
+    pointer-events: none;
+  }
+  &.blue::before {
+    background: var(--color-blue);
+  }
+  &.green::before {
+    background: var(--color-green);
+  }
+  &.orange::before {
+    background: var(--color-orange);
+  }
+  &.red::before {
+    background: var(--color-red);
+  }
+}
+.statLabel {
+  font-size: 0.7rem;
+  color: var(--color-text-dim);
+  margin-bottom: 0.35rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.statValue {
+  font-family: var(--font-display);
+  font-size: 1.65rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--color-text);
+}
+
+// ── Table ─────────────────────────────────────────────────────
+.tableWrap {
+  overflow-x: auto;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+}
+th {
+  background: var(--color-gold-dim);
+  color: var(--color-text-dim);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.75rem 1rem;
+  text-align: right;
+  font-weight: 700;
+  border-bottom: 1px solid var(--color-border);
+}
+td {
+  padding: 0.85rem 1rem;
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: middle;
+  color: var(--color-text);
+}
+tr:hover td {
+  background: var(--color-gold-dim);
+}
+
+.btnPlus,
+.btnMinus {
+  border-radius: 6px;
+  padding: 0.3rem 0.6rem;
+  cursor: pointer;
+  font-family: var(--font-body);
+  border: none;
+  font-weight: 700;
+}
+.btnPlus {
+  background: var(--color-green-dim);
+  border: 1px solid var(--color-green-border);
+  color: var(--color-green);
+  margin-left: 0.4rem;
+}
+.btnMinus {
+  background: var(--color-red-dim);
+  border: 1px solid var(--color-red-border);
+  color: var(--color-red);
+}

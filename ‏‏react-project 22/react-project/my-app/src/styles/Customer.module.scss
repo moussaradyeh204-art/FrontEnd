@@ -1,0 +1,116 @@
+@use 'variables' as *;
+
+.layout { display: flex; min-height: 100vh; }
+
+// ── User info in sidebar ──────────────────────────────────────
+.userBar {
+  background: var(--color-gold-dim);
+  border: 1px solid var(--color-border-gold);
+  border-radius: 10px; padding: 0.65rem 0.85rem; margin-bottom: 1.5rem; font-size: 0.8rem;
+}
+.userName  { color: var(--color-gold); font-weight: 700; margin-bottom: 0.15rem; }
+.userEmail { color: var(--color-text-dim); font-size: 0.75rem; }
+
+.guestBar {
+  background: var(--color-gold-dim);
+  border: 1px dashed var(--color-border-gold);
+  border-radius: 10px; padding: 0.65rem 0.85rem; margin-bottom: 1.5rem; text-align: center;
+}
+.guestLabel { color: var(--color-text-dim); font-size: 0.78rem; margin-bottom: 0.35rem; }
+.guestBtn {
+  width: 100%; padding: 0.5rem; border-radius: 8px; font-size: 0.82rem;
+  @include gold-button;
+}
+
+// ── Page content ──────────────────────────────────────────────
+.pageTitle { font-family: var(--font-display); font-size: 1.8rem; margin-bottom: 0.3rem; color: var(--color-text); }
+.pageSub   { color: var(--color-text-dim); font-size: 0.88rem; margin-bottom: 2rem; }
+
+// ── Filter bar ────────────────────────────────────────────────
+.filterBar {
+  display: flex; gap: 0.75rem; margin-bottom: 1.5rem; flex-wrap: wrap; align-items: center;
+}
+.filterInput, .filterSelect {
+  background: var(--color-card); border: 1px solid var(--color-border); border-radius: 9px;
+  padding: 0.7rem 1rem; color: var(--color-text); font-family: var(--font-body); font-size: 0.9rem;
+  outline: none; transition: border 0.2s;
+  &:focus { border-color: var(--color-border-gold); }
+  option  { background: var(--color-surface); }
+}
+
+// ── Product grid ──────────────────────────────────────────────
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.2rem; }
+
+.card {
+  background: var(--color-card); border: 1px solid var(--color-border); border-radius: var(--radius);
+  overflow: hidden; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex; flex-direction: column;
+  &:hover { transform: translateY(-6px); border-color: var(--color-border-gold); box-shadow: 0 16px 40px rgba(0,0,0,0.25); }
+}
+
+.imgWrap {
+  position: relative; height: 240px; overflow: hidden; background: var(--color-surface2);
+  img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; display: block; }
+}
+.card:hover .imgWrap img { transform: scale(1.06); }
+
+.wishBtn, .shareBtn {
+  position: absolute; top: 0.6rem; border: none; border-radius: 50%;
+  width: 36px; height: 36px; @include flex-center; font-size: 1.1rem; cursor: pointer; transition: all 0.2s; z-index: 2;
+  background: rgba(0, 0, 0, 0.5);
+}
+.wishBtn  { left: 0.6rem; &.active { background: rgba(192, 57, 43, 0.85); } &:hover { transform: scale(1.1); } }
+.shareBtn { right: 0.6rem; &:hover { background: var(--color-gold-dim); transform: scale(1.1); } }
+
+.saleTag {
+  position: absolute; top: 0.6rem; right: 0.6rem; z-index: 3;
+  background: linear-gradient(135deg, #8e44ad, #a855f7); color: #fff;
+  font-size: 0.72rem; font-weight: 900; padding: 0.25rem 0.65rem; border-radius: 999px;
+}
+
+.body { padding: 1rem; display: flex; flex-direction: column; gap: 0.55rem; flex: 1; }
+.name  { font-weight: 800; font-size: 0.95rem; color: var(--color-text); }
+.code  { font-size: 0.75rem; color: var(--color-text-dim); font-family: monospace; }
+.price { color: var(--color-gold); font-family: var(--font-display); font-size: 1.2rem; }
+
+// ── Badges ────────────────────────────────────────────────────
+.badge {
+  display: inline-block; padding: 0.25rem 0.7rem; border-radius: 20px; font-size: 0.75rem; font-weight: 800;
+  &.green  { background: var(--color-green-dim);  color: var(--color-green);  border: 1px solid var(--color-green-border);  }
+  &.red    { background: var(--color-red-dim);    color: var(--color-red);    border: 1px solid var(--color-red-border);    }
+  &.yellow { background: var(--color-gold-dim);   color: var(--color-gold);   border: 1px solid var(--color-border-gold);   }
+}
+
+// ── Card actions ──────────────────────────────────────────────
+.actions { display: flex; gap: 0.6rem; margin-top: 0.25rem; flex-wrap: wrap; }
+.actBtn {
+  flex: 1; min-width: 110px; @include flex-center; gap: 0.45rem;
+  padding: 0.6rem 0.7rem; border-radius: 9px; border: 1px solid var(--color-border);
+  background: rgba(255, 255, 255, 0.03); color: var(--color-text);
+  font-family: var(--font-body); font-size: 0.86rem; font-weight: 800; cursor: pointer; transition: all 0.2s;
+  &:hover { background: var(--color-gold-dim); border-color: var(--color-border-gold); color: var(--color-gold); }
+}
+
+// ── Cart ──────────────────────────────────────────────────────
+.cartItem {
+  display: flex; align-items: center; gap: 1rem;
+  padding: 1rem 0; border-bottom: 1px solid var(--color-border);
+}
+.cartImg  { width: 64px; height: 64px; object-fit: cover; border-radius: 8px; flex-shrink: 0; }
+.cartName { font-weight: 800; font-size: 0.92rem; margin-bottom: 0.2rem; color: var(--color-text); }
+.cartQty  { font-size: 0.78rem; color: var(--color-text-dim); }
+.cartPrice{ font-family: var(--font-display); color: var(--color-gold); font-size: 1.05rem; }
+.cartTotal {
+  display: flex; justify-content: space-between; padding: 1.5rem 0;
+  font-family: var(--font-display); font-size: 1.4rem; color: var(--color-text);
+  span:last-child { color: var(--color-gold); }
+}
+.checkoutBtn {
+  width: 100%; padding: 1rem; border-radius: 12px; font-size: 1rem; @include gold-button;
+}
+.deleteBtn {
+  background: none; border: none; color: var(--color-red); cursor: pointer; font-size: 1.2rem;
+  &:hover { transform: scale(1.15); }
+}
+
+.empty { text-align: center; padding: 4rem; color: var(--color-text-dim); font-size: 1rem; }

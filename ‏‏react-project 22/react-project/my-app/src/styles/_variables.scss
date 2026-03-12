@@ -1,0 +1,133 @@
+// ============================================================
+// FashionSync — ALL Colors & Theme Variables
+// Edit this file ONLY to change colors/theme across the whole app
+// ============================================================
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Alef:wght@400;700&family=Roboto+Mono:wght@400;500&display=swap');
+
+// ── Dark Theme (default) ──────────────────────────────────────
+:root {
+  // Backgrounds
+  --color-bg:           #080808;
+  --color-surface:      #111116;
+  --color-surface2:     #16161d;
+  --color-card:         #161616;
+
+  // Text
+  --color-text:         #f0f0ee;
+  --color-text-dim:     #777;
+  --color-text-mid:     #aaa;
+
+  // Borders
+  --color-border:       rgba(255, 255, 255, 0.07);
+  --color-border-gold:  rgba(201, 168, 76, 0.18);
+
+  // Gold accent (brand color)
+  --color-gold:         #c9a84c;
+  --color-gold-light:   #e8c97a;
+  --color-gold-dim:     rgba(201, 168, 76, 0.10);
+  --color-gold-glow:    rgba(201, 168, 76, 0.22);
+
+  // Status colors
+  --color-red:          #e05050;
+  --color-red-dim:      rgba(224, 80, 80, 0.10);
+  --color-red-border:   rgba(224, 80, 80, 0.22);
+  --color-green:        #34c76a;
+  --color-green-dim:    rgba(52, 199, 106, 0.09);
+  --color-green-border: rgba(52, 199, 106, 0.22);
+  --color-blue:         #4a9eff;
+  --color-blue-dim:     rgba(74, 158, 255, 0.09);
+  --color-orange:       #f97316;
+  --color-purple:       #a855f7;
+  --color-purple-dim:   rgba(168, 85, 247, 0.09);
+  --color-purple-border:rgba(168, 85, 247, 0.22);
+
+  // Layout
+  --sidebar-width:      265px;
+  --radius:             14px;
+  --radius-lg:          20px;
+
+  // Typography
+  --font-body:          'Alef', sans-serif;
+  --font-display:       'Playfair Display', serif;
+  --font-mono:          'Roboto Mono', monospace;
+
+  // Animation
+  --transition:         all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+// ── Light Theme ───────────────────────────────────────────────
+// Toggle by adding data-theme="light" to <html> or body.light
+[data-theme='light'],
+body.light {
+  --color-bg:           #f2f1ed;
+  --color-surface:      #ffffff;
+  --color-surface2:     #fafaf8;
+  --color-card:         #ffffff;
+  --color-text:         #111111;
+  --color-text-dim:     #666666;
+  --color-text-mid:     #444444;
+  --color-border:       rgba(0, 0, 0, 0.08);
+  --color-border-gold:  rgba(201, 168, 76, 0.22);
+}
+
+// ── SCSS Aliases (for use inside SCSS logic/mixins) ───────────
+$gold:        #c9a84c;
+$gold-light:  #e8c97a;
+
+// ── Reusable Mixins ───────────────────────────────────────────
+@mixin gold-text {
+  background: linear-gradient(135deg, var(--color-gold), var(--color-gold-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@mixin gold-button {
+  background: linear-gradient(135deg, var(--color-gold), var(--color-gold-light));
+  color: #080808;
+  border: none;
+  font-family: var(--font-body);
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px var(--color-gold-glow);
+  }
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+  }
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin sidebar-fixed {
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: var(--sidebar-width);
+  z-index: 100;
+  overflow-y: auto;
+}
+
+// ── Global Animations ─────────────────────────────────────────
+@keyframes riseIn   { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeUp   { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+@keyframes fadeIn   { from { opacity: 0; transform: translateY(6px);  } to { opacity: 1; transform: none; } }
+@keyframes blink    { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+@keyframes pulse    { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+@keyframes floatAround {
+  0%   { transform: translate(0, 0)     rotate(0deg);   }
+  25%  { transform: translate(30px, -40px) rotate(10deg);  }
+  50%  { transform: translate(-20px, -80px) rotate(-5deg); }
+  75%  { transform: translate(-50px, -40px) rotate(5deg);  }
+  100% { transform: translate(0, 0)     rotate(0deg);   }
+}
